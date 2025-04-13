@@ -1,0 +1,36 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribui os elementos */
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px; /* Espaço entre os itens */
+  flex-grow: 1; /* Permite que ocupe o espaço disponível */
+  justify-content: center; /* Centraliza os itens */
+}
+
+.search-bar {
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  margin-left: 20px; /* Adiciona um espaçamento entre os links e a barra */
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.sign-in, .sign-up {
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
