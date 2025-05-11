@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/navbar';
-import Footer from './components/footer';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
@@ -11,8 +11,20 @@ import BookInfoPage from './pages/BookInfoPage';
 import ExpiredBookInfoPage from './pages/ExpiredBookInfoPage';
 import ReviewPaymentPage from './pages/ReviewPaymentPage';
 import CartPage from './pages/CartPage';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
+  useEffect(() => {
+    axios.get('http://localhost:5090/api/books')
+      .then(res => {
+        console.log(res.data); // Isso deve aparecer no console
+      })
+      .catch(err => {
+        console.error('Erro ao buscar dados:', err);
+      });
+  }, []);
+
   return(
     <Router>
       <Navbar />

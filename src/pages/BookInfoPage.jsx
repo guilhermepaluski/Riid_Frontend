@@ -9,7 +9,7 @@ const BookInfoPage = () => {
             <div className="flex p-15 min-h-screen">
                 {/* BookImage */}
                 <div> 
-                    <img src="./images/asaventurasdocapitaocueca.jpg" alt="As Aventuras do Capitão Cueca" className="w-[400px] mr-35" />
+                    <img src= { book.image } alt="" className="w-[400px] mr-35" />
                 </div>
 
                 {/* Book Infos */}
@@ -18,8 +18,6 @@ const BookInfoPage = () => {
                         As Aventuras do Capitão Cueca
                     </span>
                     <span className="flex font-bold text-2xl">
-                        <br />
-                        A bald teacher, hated by almost all his students, starts to feel like a superhero and needs to win the monster that appeared to destroy the school.
                     </span>
 
                     {/* StarPNG */}

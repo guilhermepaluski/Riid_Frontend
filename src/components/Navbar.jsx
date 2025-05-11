@@ -1,5 +1,6 @@
 import "react";
 import { Link } from 'react-router-dom';
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
     return (
@@ -11,11 +12,11 @@ const Navbar = () => {
                     <Link to="/books" className="">Books</Link>
                     <Link to="/borrowed" className="">Borrowed</Link>
                     <Link to="/aboutus" className="">About us</Link>
-                    <input
-                    type="text"
-                    placeholder="Search"
-                    className="px-2 py-1 rounded bg-white text-black"
-                    />
+
+                <div>
+                    <SearchBar />
+                </div>
+                    
                     <div className="flex">
                         <div className="flex gap-5">
                             <Link to="/cart">

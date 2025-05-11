@@ -12,10 +12,10 @@ const RegisterPage = () => {
           <input type="email" placeholder="Email" className="text-white block w-full p-2 my-2 border bg-black" />
           <input type="password" placeholder="Password" className="text-white block w-full p-2 my-2 border bg-black" />
           <Link to="/login" className="hover:underline text-1xl font-regular mt-4">Already have an account? Click here.</Link><br />
-          <div className="flex justify-center space-x-4 mt-4">
+          <div className="flex justify-center space-x-12 mt-4">
             <img src="./images/applelogo.png" alt="Apple" className="w-8" />
-            <img src="./images/googlelogo.png" alt="Google" className="w-8" />
-            <img src="./images/yahoologo.png" alt="Yahoo" className="w-8" />
+            <img src="./images/googlelogo.png" alt="Google" className="w-9" />
+            <img src="./images/microsoftlogo.png" alt="Yahoo" className="w-9" />
           </div>
         </div>
       </div>

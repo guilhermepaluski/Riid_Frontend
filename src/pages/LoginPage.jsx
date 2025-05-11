@@ -13,7 +13,7 @@ const LoginPage = () => {
           <div className="flex justify-center space-x-4 mt-4">
             <img src="./images/applelogo.png" alt="Apple" className="w-8" />
             <img src="./images/googlelogo.png" alt="Google" className="w-8" />
-            <img src="./images/yahoologo.png" alt="Yahoo" className="w-8" />
+            <img src="./images/microsoftlogo.png" alt="Yahoo" className="w-8" />
           </div>
         </div>
       </div>
