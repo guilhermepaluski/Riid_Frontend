@@ -13,6 +13,7 @@ import ReviewPaymentPage from './pages/ReviewPaymentPage';
 import CartPage from './pages/CartPage';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   useEffect(() => {
@@ -26,22 +27,24 @@ function App() {
   }, []);
 
   return(
-    <Router>
-      <Navbar />
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/register' element={<RegisterPage />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/books' element={<BooksPage />} />
-          <Route path='/borrowed' element={<BorrowedPage />} />
-          <Route path='/aboutus' element={<AboutUsPage />} />
-          <Route path='/bookinfo' element={<BookInfoPage />} />
-          <Route path='/expiredbookinfo' element={<ExpiredBookInfoPage />} />
-          <Route path='/reviewpayment' element={<ReviewPaymentPage />} />
-          <Route path='/cart' element={<CartPage />} />
-        </Routes>
-      <Footer />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/register' element={<RegisterPage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/books' element={<BooksPage />} />
+            <Route path='/borrowed' element={<BorrowedPage />} />
+            <Route path='/aboutus' element={<AboutUsPage />} />
+            <Route path='/bookinfo/:id' element={<BookInfoPage />} />
+            <Route path='/expiredbookinfo' element={<ExpiredBookInfoPage />} />
+            <Route path='/reviewpayment/:id' element={<ReviewPaymentPage />} />
+            <Route path='/cart' element={<CartPage />} />
+          </Routes>
+        <Footer />
+      </Router>
+    </AuthProvider>
   );
 }
 
