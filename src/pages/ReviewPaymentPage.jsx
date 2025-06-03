@@ -1,5 +1,5 @@
 import "react";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -14,7 +14,32 @@ const ReviewPaymentPage = () => {
   .catch(err => console.error('Erro ao carregar livro:', err));
   }, [id]);
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
+    try {
+      const response = await fetch(`http://localhost:5090/api/BookPdf/download/${id}`, {
+        method: 'GET',
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao fazer o download do PDF.');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      
+      document.body.appendChild(a);
+      a.click();
+
+      // Limpeza
+      a.remove();
+      window.URL.revokeObjectURL(url);
+
+  } catch (error) {
+    console.error('Erro:', error);
+  }
+
   setShowPopup(true);
   };
 
