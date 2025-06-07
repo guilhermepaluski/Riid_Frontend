@@ -1,7 +1,9 @@
 import "react";
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import SearchBar from "./SearchBar";
 
-const Navbar = () => {
+const Navbar = ({ onSearch }) => {
     return (
         <div className="flex flex-col justify-between bg-black">
             {/* Navbar */}
@@ -11,11 +13,11 @@ const Navbar = () => {
                     <Link to="/books" className="">Books</Link>
                     <Link to="/borrowed" className="">Borrowed</Link>
                     <Link to="/aboutus" className="">About us</Link>
-                    <input
-                    type="text"
-                    placeholder="Search"
-                    className="px-2 py-1 rounded bg-white text-black"
-                    />
+
+                <div>
+                    <SearchBar onSearch={onSearch} />
+                </div>
+                    
                     <div className="flex">
                         <div className="flex gap-5">
                             <Link to="/cart">
@@ -38,3 +40,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+Navbar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
