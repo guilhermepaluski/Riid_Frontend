@@ -1,20 +1,17 @@
 import "react";
-import { useState } from "react";
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import useBooks from "../../hooks/useBooks";
-import SearchBar from "../components/SearchBar";
 
-const BooksPage = () => {
-  const [search, setSearch] = useState("");
-
+const BooksPage = ({ search }) => {
   const [books] = useBooks(
       search === ""
         ? "http://localhost:5090/api/Book"
-        : `http://localhost:5090/api/Book/${search}`);
+        : `http://localhost:5090/api/Book/${search}`
+  );
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <SearchBar onSearch={setSearch} />
 
       <div className="flex justify-center items-center">
         <div>
@@ -60,3 +57,7 @@ const BooksPage = () => {
 };
 
 export default BooksPage;
+
+BooksPage.propTypes = {
+  search: PropTypes.string.isRequired,
+};

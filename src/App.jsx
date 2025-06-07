@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -16,8 +17,10 @@ import axios from 'axios';
 import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
-    axios.get('http://localhost:5090/api/books')
+    axios.get('http://localhost:5090/api/Book')
       .then(res => {
         console.log(res.data); // Isso deve aparecer no console
       })
@@ -29,12 +32,12 @@ function App() {
   return(
     <AuthProvider>
       <Router>
-        <Navbar />
+        <Navbar onSearch={setSearch} />
           <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
-            <Route path='/books' element={<BooksPage />} />
+            <Route path='/books' element={<BooksPage search={search} />} />
             <Route path='/borrowed' element={<BorrowedPage />} />
             <Route path='/aboutus' element={<AboutUsPage />} />
             <Route path='/bookinfo/:id' element={<BookInfoPage />} />

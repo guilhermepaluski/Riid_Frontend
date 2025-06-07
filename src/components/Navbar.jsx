@@ -1,8 +1,9 @@
 import "react";
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import SearchBar from "./SearchBar";
 
-const Navbar = () => {
+const Navbar = ({ onSearch }) => {
     return (
         <div className="flex flex-col justify-between bg-black">
             {/* Navbar */}
@@ -14,7 +15,7 @@ const Navbar = () => {
                     <Link to="/aboutus" className="">About us</Link>
 
                 <div>
-                    <SearchBar />
+                    <SearchBar onSearch={onSearch} />
                 </div>
                     
                     <div className="flex">
@@ -39,3 +40,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+Navbar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
