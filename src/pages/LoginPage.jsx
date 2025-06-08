@@ -1,30 +1,26 @@
 import { useState } from "react";
+import api from "../auth/api";
+import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = ({onLogin}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5090/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-      });
-
-      if (!response.ok) {
+      const response = await api.post('/auth/login', { email, password });
+      if (response.status !== 200) {
         throw new Error('Erro ao fazer login');
       }
 
-      const data = await response.json();
-      localStorage.setItem('token', data.token); // armazena token
-      alert('Login realizado com sucesso!');
+      localStorage.setItem('token', response.data.token);
+      onLogin();
+      navigate("/");
     } catch (error) {
-      alert('Erro: ' + error.message);
+      alert('Erro: ' + error.response.data);
     }
   };
 

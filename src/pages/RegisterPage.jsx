@@ -1,16 +1,48 @@
 import "react";
+import { useState } from "react";
 import { Link } from 'react-router-dom';
+import api from "../auth/api";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const errorMessages = []
+  const navigate = useNavigate();
+
+  const handleRegister = async(e) => {
+    e.preventDefault();
+    try{
+      await api.post("/auth/register", {
+        name,
+        email,
+        password
+      });
+      alert('Cadastro realizado com sucesso!');
+      navigate("/login");
+    }catch(error){
+      console.log(error.response.data)
+      error.response.data.forEach(element => {
+        errorMessages.push(element.description)
+      });
+      errorMessages.forEach(error=> {
+          alert(error);
+      });
+    }
+  }
+  
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
 
       {/* Body */}
       <div className="flex justify-center items-center min-h-screen">
-        <div className="border-4 border-black p-8 w-96 text-center">
+        <form onSubmit={handleRegister} className="border-4 border-black p-8 w-96 text-center">
           <h2 className="text-3xl font-bold">Register</h2><br />
-          <input type="email" placeholder="Email" className="text-white block w-full p-2 my-2 border bg-black" />
-          <input type="password" placeholder="Password" className="text-white block w-full p-2 my-2 border bg-black" />
+          
+          <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} className="text-white block w-full p-2 my-2 border bg-black" />
+          <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="text-white block w-full p-2 my-2 border bg-black" />
+          <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="text-white block w-full p-2 my-2 border bg-black" />
           
           <button
             type="submit"
@@ -28,7 +60,7 @@ const RegisterPage = () => {
             <img src="./images/googlelogo.png" alt="Google" className="w-9" />
             <img src="./images/microsoftlogo.png" alt="Microsoft" className="w-9" />
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

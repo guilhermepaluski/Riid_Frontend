@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -18,25 +18,28 @@ import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   const [search, setSearch] = useState("");
+  const [logado, setLogado] = useState(!!localStorage.getItem("token"));
 
-  useEffect(() => {
-    axios.get('http://localhost:5090/api/Book')
-      .then(res => {
-        console.log(res.data); // Isso deve aparecer no console
-      })
-      .catch(err => {
-        console.error('Erro ao buscar dados:', err);
-      });
-  }, []);
+  const handleLogin = () => setLogado(true);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setLogado(false);
+  }
 
+  console.log(logado)
+  // VER SOBRE A SEGURANÇA E ROTAS AQUI NO APP
   return(
     <AuthProvider>
       <Router>
         <Navbar onSearch={setSearch} />
           <Routes>
-            <Route path='/' element={<HomePage />} />
+            <Route
+              path='/'
+              element={<Navigate to={logado ? "/home" : "/login"}/>}
+            />
+            <Route path='/home' element={<HomePage />} />
             <Route path='/register' element={<RegisterPage />} />
-            <Route path='/login' element={<LoginPage />} />
+            <Route path='/login' element={<LoginPage onLogin={handleLogin}/>} />
             <Route path='/books' element={<BooksPage search={search} />} />
             <Route path='/borrowed' element={<BorrowedPage />} />
             <Route path='/aboutus' element={<AboutUsPage />} />
