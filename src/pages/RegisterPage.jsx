@@ -16,11 +16,11 @@ const RegisterPage = () => {
             type="submit"
             className="mt-4 bg-black text-white px-4 py-2 w-30 rounded-md"
           >
-            Registrar
+            Register
           </button>
 
           <div className="mt-4">
-            <Link to="/login" className="hover:underline text-1xl font-regular mt-4">Already have an account? Click here.</Link><br />
+            <Link to="/login" className="hover:underline">Already have an account? <b>Click here</b>.</Link><br />
           </div>
 
           <div className="flex justify-center space-x-12 mt-4">
