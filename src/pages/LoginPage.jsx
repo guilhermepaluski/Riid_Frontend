@@ -1,3 +1,5 @@
+import "react";
+import { Link } from 'react-router-dom';
 import { useState } from "react";
 import api from "../auth/api";
 import { useNavigate } from "react-router-dom";
@@ -52,8 +54,12 @@ const LoginPage = ({onLogin}) => {
             type="submit"
             className="mt-4 bg-black text-white px-4 py-2 w-30 rounded-md"
           >
-            Entrar
+            Login
           </button>
+
+          <div className="mt-4">
+            <Link to="/register" className="hover:underline">First access? <b>Click here</b>.</Link>
+          </div>
 
           <div className="flex justify-center space-x-12 mt-4">
             <img src="./images/applelogo.png" alt="Apple" className="w-8" />
