@@ -2,8 +2,11 @@ import "react";
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import SearchBar from "./SearchBar";
+import { useState } from "react";
 
 const Navbar = ({ onSearch }) => {
+    const [logado, setLogado] = useState(false);
+
     return (
         <div className="flex flex-col justify-between bg-black">
             {/* Navbar */}
@@ -23,13 +26,23 @@ const Navbar = ({ onSearch }) => {
                             <Link to="/cart">
                                 <img src="./images/cartriid2.png" className="w-10" alt="" />
                             </Link>
+
+                            {/* User Icon/Sign in/Sign up */}
                             <div>
-                                <button className="bg-black text-white px-3 py-1 rounded">
-                                    <Link to="/login" className="">Sign in</Link>
-                                </button>
-                                <button className="bg-white text-black px-3 py-1 rounded">
-                                    <Link to="/register" className="">Sign up</Link>
-                                </button>
+                                {logado ? (
+                                    <button>
+                                        <img src="./images/usericonpng.png" alt="" />
+                                    </button>
+                                ) : (
+                                    <>
+                                        <button className="bg-black text-white px-3 py-1 rounded">
+                                            <Link to="/login" className="">Sign in</Link>
+                                        </button>
+                                        <button className="bg-white text-black px-3 py-1 rounded">
+                                            <Link to="/register" className="">Sign up</Link>
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
