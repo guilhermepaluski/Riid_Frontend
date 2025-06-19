@@ -15,6 +15,7 @@ import CartPage from './pages/CartPage';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { AuthProvider } from './contexts/AuthContext';
+import { jwtDecode } from 'jwt-decode';
 
 function App() {
   const [search, setSearch] = useState("");
@@ -25,8 +26,27 @@ function App() {
     localStorage.removeItem("token");
     setLogado(false);
   }
+  const isTokenValid = (token) => {
+    try {
+      const { exp } = jwtDecode(token);
+      const now = Date.now / 60000;
+      exp < now ? true : false;
+    } catch (error) {
+      return false;
+    }
+  }
 
-  console.log(logado)
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token && isTokenValid(token)){
+      setLogado(true);
+    } else {
+      setLogado(false);
+    }
+  }, [])
+  console.log(`Logado?: ${logado}`);
+
   // VER SOBRE A SEGURANÇA E ROTAS AQUI NO APP
   return(
     <AuthProvider>
