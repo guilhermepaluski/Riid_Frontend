@@ -2,10 +2,9 @@ import "react";
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import SearchBar from "./SearchBar";
-import { useState } from "react";
 
 const Navbar = ({ onSearch }) => {
-    const [logado, setLogado] = useState(false);
+    const logado = !!localStorage.getItem("token")
 
     return (
         <div className="flex flex-col justify-between bg-black">
@@ -31,18 +30,21 @@ const Navbar = ({ onSearch }) => {
                             <div>
                                 {logado ? (
                                     <button>
-                                        <img src="./images/usericonpng.png" alt="" />
+                                        <Link to="/user">
+                                        <img src="./images/usericonpng.png" className="w-11" alt="" />
+                                        </Link>
                                     </button>
                                 ) : (
-                                    <>
-                                        <button className="bg-black text-white px-3 py-1 rounded">
-                                            <Link to="/login" className="">Sign in</Link>
-                                        </button>
-                                        <button className="bg-white text-black px-3 py-1 rounded">
-                                            <Link to="/register" className="">Sign up</Link>
-                                        </button>
-                                    </>
-                                )}
+                                        <>
+                                            <button className="bg-black text-white px-3 py-1 rounded">
+                                                <Link to="/login" className="">Sign in</Link>
+                                            </button>
+                                            <button className="bg-white text-black px-3 py-1 rounded">
+                                                <Link to="/register" className="">Sign up</Link>
+                                            </button>
+                                        </>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>

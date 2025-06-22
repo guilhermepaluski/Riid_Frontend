@@ -12,6 +12,7 @@ import BookInfoPage from './pages/BookInfoPage';
 import ExpiredBookInfoPage from './pages/ExpiredBookInfoPage';
 import ReviewPaymentPage from './pages/ReviewPaymentPage';
 import CartPage from './pages/CartPage';
+import UserPage from './pages/UserPage';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { AuthProvider } from './contexts/AuthContext';
@@ -40,6 +41,7 @@ function App() {
             <Route path='/home' element={<HomePage />} />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage onLogin={handleLogin}/>} />
+            <Route path='/user' element={<UserPage />} />
             <Route path='/books' element={<BooksPage search={search} />} />
             <Route path='/borrowed' element={<BorrowedPage />} />
             <Route path='/aboutus' element={<AboutUsPage />} />
