@@ -1,7 +1,7 @@
 import "react";
 import PropTypes from 'prop-types';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import useBooks from "../../hooks/useBooks";
 
 const BooksPage = ({ search }) => {
@@ -12,8 +12,6 @@ const BooksPage = ({ search }) => {
   );
   
   const [isOpen, setOpen] = useState(false)
-  const navigate = useNavigate
-  const menuRef = useRef()
 
   return (
     <div className="min-h-screen flex flex-col bg-white">

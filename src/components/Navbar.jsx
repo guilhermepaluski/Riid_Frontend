@@ -60,7 +60,7 @@ const Navbar = ({ onSearch }) => {
 
                                         {isOpen && (
                                             <div className="absolute right-0 mt-2 w-36 bg-white text-black rounded-lg shadow-lg z-50">
-                                                <Link to="/user" className="block px-4 py-2 hover:bg-gray-100"onClick={() => setIsOpen(false)}>
+                                                <Link to="/user" className="block px-4 py-2 hover:bg-gray-100 rounded-t-lg"onClick={() => setIsOpen(false)}>
                                                     Account
                                                 </Link>
 
@@ -68,7 +68,7 @@ const Navbar = ({ onSearch }) => {
                                                     Settings
                                                 </Link>
                                                 
-                                                <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-red-900">
+                                                <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-red-900 rounded-b-lg">
                                                     Exit
                                                 </button>
                                             </div>
