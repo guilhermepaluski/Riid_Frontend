@@ -16,6 +16,8 @@ import UserPage from './pages/UserPage';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { AuthProvider } from './contexts/AuthContext';
+import { jwtDecode } from 'jwt-decode';
+import UserNotLogged from './pages/UserNotLogged';
 
 function App() {
   const [search, setSearch] = useState("");
@@ -26,29 +28,49 @@ function App() {
     localStorage.removeItem("token");
     setLogado(false);
   }
+  const isTokenValid = (token) => {
+    try {
+      const { exp } = jwtDecode(token);
+      const now = Date.now / 60000;
+      exp < now ? true : false;
+    } catch (error) {
+      return false;
+    }
+  }
 
-  console.log(logado)
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token && isTokenValid(token)){
+      setLogado(true);
+    } else {
+      setLogado(false);
+    }
+  }, [])
+  console.log(`Logado?: ${logado}`);
+
   // VER SOBRE A SEGURANÇA E ROTAS AQUI NO APP
   return(
     <AuthProvider>
       <Router>
         <Navbar onSearch={setSearch} />
           <Routes>
-            <Route
-              path='/'
-              element={<Navigate to={logado ? "/home" : "/login"}/>}
-            />
+            <Route path='/' element={<HomePage />}/>
             <Route path='/home' element={<HomePage />} />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage onLogin={handleLogin}/>} />
             <Route path='/user' element={<UserPage />} />
             <Route path='/books' element={<BooksPage search={search} />} />
-            <Route path='/borrowed' element={<BorrowedPage />} />
+            <Route path='/borrowed' element={
+              logado ? <BorrowedPage /> : <Navigate to={"/notLogged"}/>
+            } 
+            />
             <Route path='/aboutus' element={<AboutUsPage />} />
             <Route path='/bookinfo/:id' element={<BookInfoPage />} />
             <Route path='/expiredbookinfo' element={<ExpiredBookInfoPage />} />
             <Route path='/reviewpayment/:id' element={<ReviewPaymentPage />} />
             <Route path='/cart' element={<CartPage />} />
+            <Route path='/notLogged' element={<UserNotLogged />} />
           </Routes>
         <Footer />
       </Router>
