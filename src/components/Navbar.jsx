@@ -1,24 +1,48 @@
 import "react";
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
 import SearchBar from "./SearchBar";
 
 const Navbar = ({ onSearch }) => {
     const logado = !!localStorage.getItem("token")
+    const navigate = useNavigate()
+    const [isOpen, setIsOpen] = useState(false)
+    const menuRef = useRef()
+
+    useEffect(() => {
+        const handler = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handler);
+        return () => {
+            document.removeEventListener('mousedown', handler);
+        };
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setIsOpen(false);
+        navigate("/login");
+    };
 
     return (
         <div className="flex flex-col justify-between bg-black">
             {/* Navbar */}
             <nav className="bg-black text-white p-4 flex justify-between items-center">
-                <Link to="/" className="text-2xl font-bold">RIID</Link>
+                <Link to="/" className="text-2xl font-bold">
+                    <img src="./images/riidlogo.png" className="w-50" alt="" />
+                </Link>
                 <div className="flex space-x-50">
                     <Link to="/books" className="">Books</Link>
                     <Link to="/borrowed" className="">Borrowed</Link>
                     <Link to="/aboutus" className="">About us</Link>
 
-                <div>
-                    <SearchBar onSearch={onSearch} />
-                </div>
+                    <div>
+                        <SearchBar onSearch={onSearch} />
+                    </div>
                     
                     <div className="flex">
                         <div className="flex gap-5">
@@ -27,13 +51,29 @@ const Navbar = ({ onSearch }) => {
                             </Link>
 
                             {/* User Icon/Sign in/Sign up */}
-                            <div>
+                            <div ref={menuRef} className="relative">
                                 {logado ? (
-                                    <button>
-                                        <Link to="/user">
-                                        <img src="./images/usericonpng.png" className="w-11" alt="" />
-                                        </Link>
-                                    </button>
+                                    <>
+                                        <button onClick={() => setIsOpen(!isOpen)}>
+                                            <img src="./images/usericonpng.png" className="w-9" alt="" />
+                                        </button>
+
+                                        {isOpen && (
+                                            <div className="absolute right-0 mt-2 w-36 bg-white text-black rounded-lg shadow-lg z-50">
+                                                <Link to="/user" className="block px-4 py-2 hover:bg-gray-100"onClick={() => setIsOpen(false)}>
+                                                    Account
+                                                </Link>
+
+                                                <Link to="/settings" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setIsOpen(false)}>
+                                                    Settings
+                                                </Link>
+                                                
+                                                <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-red-900">
+                                                    Exit
+                                                </button>
+                                            </div>
+                                        )}
+                                    </>
                                 ) : (
                                         <>
                                             <button className="bg-black text-white px-3 py-1 rounded">
