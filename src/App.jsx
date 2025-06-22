@@ -16,6 +16,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { AuthProvider } from './contexts/AuthContext';
 import { jwtDecode } from 'jwt-decode';
+import UserNotLogged from './pages/UserNotLogged';
 
 function App() {
   const [search, setSearch] = useState("");
@@ -53,20 +54,21 @@ function App() {
       <Router>
         <Navbar onSearch={setSearch} />
           <Routes>
-            <Route
-              path='/'
-              element={<Navigate to={logado ? "/home" : "/login"}/>}
-            />
+            <Route path='/' element={<HomePage />}/>
             <Route path='/home' element={<HomePage />} />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage onLogin={handleLogin}/>} />
             <Route path='/books' element={<BooksPage search={search} />} />
-            <Route path='/borrowed' element={<BorrowedPage />} />
+            <Route path='/borrowed' element={
+              logado ? <BorrowedPage /> : <Navigate to={"/notLogged"}/>
+            } 
+            />
             <Route path='/aboutus' element={<AboutUsPage />} />
             <Route path='/bookinfo/:id' element={<BookInfoPage />} />
             <Route path='/expiredbookinfo' element={<ExpiredBookInfoPage />} />
             <Route path='/reviewpayment/:id' element={<ReviewPaymentPage />} />
             <Route path='/cart' element={<CartPage />} />
+            <Route path='/notLogged' element={<UserNotLogged />} />
           </Routes>
         <Footer />
       </Router>
