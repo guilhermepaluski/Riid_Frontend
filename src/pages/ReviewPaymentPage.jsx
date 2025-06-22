@@ -2,6 +2,7 @@ import "react";
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import api from "../auth/api";
 
 const ReviewPaymentPage = () => {
   const { id } = useParams();
@@ -15,6 +16,19 @@ const ReviewPaymentPage = () => {
   }, [id]);
 
   const handlePayment = async () => {
+
+    try{
+      axios.post('http://localhost:5090/api/Loan'), {
+        fk_book: id
+      }
+    }catch(error){
+      console.log(`Error: ${error}`)
+    }
+
+    setShowPopup(true);
+  };
+
+  const closePopup = async () => {
     try {
       const response = await fetch(`http://localhost:5090/api/BookPdf/download/${id}`, {
         method: 'GET',
@@ -39,12 +53,7 @@ const ReviewPaymentPage = () => {
   } catch (error) {
     console.error('Erro:', error);
   }
-
-  setShowPopup(true);
-  };
-
-  const closePopup = () => {
-  setShowPopup(false);
+    setShowPopup(false);
   };
 
   if (!book) {
