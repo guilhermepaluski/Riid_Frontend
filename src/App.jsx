@@ -24,10 +24,7 @@ function App() {
   const [logado, setLogado] = useState(!!localStorage.getItem("token"));
 
   const handleLogin = () => setLogado(true);
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setLogado(false);
-  }
+
   const isTokenValid = (token) => {
     try {
       const { exp } = jwtDecode(token);
@@ -38,9 +35,10 @@ function App() {
     }
   }
 
-
   useEffect(() => {
     const token = localStorage.getItem("token");
+    
+    // ERRO NO TOKEN
     if (token && isTokenValid(token)){
       setLogado(true);
     } else {
