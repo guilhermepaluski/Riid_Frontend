@@ -1,6 +1,6 @@
 import "react";
 import { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import api from "../auth/api";
 
@@ -18,9 +18,9 @@ const ReviewPaymentPage = () => {
   const handlePayment = async () => {
 
     try{
-      axios.post('http://localhost:5090/api/Loan'), {
+      const response = await api.post('/Loan', {
         fk_book: id
-      }
+      })
     }catch(error){
       console.log(`Error: ${error}`)
     }
@@ -37,18 +37,6 @@ const ReviewPaymentPage = () => {
       if (!response.ok) {
         throw new Error('Erro ao fazer o download do PDF.');
       }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      
-      document.body.appendChild(a);
-      a.click();
-
-      // Limpeza
-      a.remove();
-      window.URL.revokeObjectURL(url);
 
   } catch (error) {
     console.error('Erro:', error);
@@ -90,12 +78,11 @@ const ReviewPaymentPage = () => {
                       <p>
                       Your lent is complete! You can close this window and start reading your book now.
                       </p>
-                      <button
-                      onClick={closePopup}
-                      className="mt-4 px-4 py-2 bg-black text-white rounded hover:bg-green-700 transition"
-                      >
-                      Close
-                      </button>
+                      <Link to="/borrowed">
+                        <button onClick={closePopup} className="mt-4 px-4 py-2 bg-black text-white rounded hover:bg-green-700 transition">
+                            Close
+                        </button>
+                      </Link>
                   </div>
                 </div>
             )}

@@ -24,15 +24,18 @@ function App() {
   const [logado, setLogado] = useState(!!localStorage.getItem("token"));
 
   const handleLogin = () => setLogado(true);
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setLogado(false);
-  }
+  
   const isTokenValid = (token) => {
     try {
       const { exp } = jwtDecode(token);
       const now = Date.now / 60000;
-      exp < now ? true : false;
+      if(exp < now){
+        console.log(`Expirou`)
+        return false
+      }else{
+        console.log(`Não expirou`)
+        return true
+      }
     } catch (error) {
       return false;
     }
