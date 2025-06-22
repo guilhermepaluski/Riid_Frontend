@@ -24,12 +24,12 @@ function App() {
   const [logado, setLogado] = useState(!!localStorage.getItem("token"));
 
   const handleLogin = () => setLogado(true);
-
+  
   const isTokenValid = (token) => {
     try {
       const { exp } = jwtDecode(token);
       const now = Date.now / 60000;
-      exp < now ? true : false;
+      exp < now ? false : true
     } catch (error) {
       return false;
     }
