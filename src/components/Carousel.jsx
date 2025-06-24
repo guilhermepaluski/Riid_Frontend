@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const categorias = [
   "Drama",
@@ -23,16 +24,9 @@ export default function CarouselHorizontalLoop() {
   ];
 
   useEffect(() => {
-    const firstCard = containerRef.current?.children[1]; // o primeiro real (após o clone do último)
-    if (firstCard) setCardWidth(firstCard.offsetWidth + 24); // largura + gap
+    const firstCard = containerRef.current?.children[1]; // primeiro real
+    if (firstCard) setCardWidth(firstCard.offsetWidth + 24);
   }, []);
-
-  const scrollToIndex = (index) => {
-    containerRef.current.scrollTo({
-      left: index * cardWidth,
-      behavior: "smooth",
-    });
-  };
 
   const scrollBy = (dir) => {
     if (!containerRef.current) return;
@@ -42,20 +36,17 @@ export default function CarouselHorizontalLoop() {
     });
   };
 
-  // Corrige o scroll ao atingir os clones (sem animação)
   const handleScrollEnd = () => {
     const maxIndex = duplicatedCategorias.length - 2;
     const scrollLeft = containerRef.current.scrollLeft;
     const index = Math.round(scrollLeft / cardWidth);
 
     if (index === 0) {
-      // Se chegou no clone do último, pula pro último real
       containerRef.current.scrollTo({
-        left: (categorias.length) * cardWidth,
+        left: categorias.length * cardWidth,
         behavior: "auto",
       });
     } else if (index === duplicatedCategorias.length - 1) {
-      // Se chegou no clone do primeiro, volta pro primeiro real
       containerRef.current.scrollTo({
         left: cardWidth,
         behavior: "auto",
@@ -63,7 +54,6 @@ export default function CarouselHorizontalLoop() {
     }
   };
 
-  {/* AUTOPLAY */}
   useEffect(() => {
     const interval = setInterval(() => {
       scrollBy(1);
@@ -71,9 +61,17 @@ export default function CarouselHorizontalLoop() {
     return () => clearInterval(interval);
   }, [cardWidth]);
 
+  const formatRoute = (categoria) => {
+    // formata para minúsculo e sem acentos (simples)
+    return categoria
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, '');
+  };
+
   return (
     <div className="relative w-full bg-black py-8">
-      {/* Botão esquerdo */}
       <button
         onClick={() => scrollBy(-1)}
         className="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-700 text-white p-2 rounded-full z-10 shadow-md"
@@ -81,7 +79,6 @@ export default function CarouselHorizontalLoop() {
         <ChevronLeft />
       </button>
 
-      {/* Container de rolagem */}
       <div
         ref={containerRef}
         className="flex gap-6 overflow-x-auto scroll-smooth px-16"
@@ -95,19 +92,17 @@ export default function CarouselHorizontalLoop() {
         }}
       >
         {duplicatedCategorias.map((categoria, index) => (
-          <div
-            key={index}
-            className="min-w-[250px] sm:min-w-[200px] md:min-w-[240px] h-60 flex items-center justify-center bg-white rounded-2xl shadow-md shrink-0 text-black text-lg font-semibold"
+          <Link key={index} to={`/books/${formatRoute(categoria)}`}
+            className="min-w-[250px] sm:min-w-[200px] md:min-w-[240px] h-60 flex items-center justify-center bg-white rounded-2xl shadow-md shrink-0 text-black text-lg font-semibold hover:scale-95 transition-transform"
             style={{
               scrollSnapAlign: "center",
             }}
           >
             {categoria}
-          </div>
+          </Link>
         ))}
       </div>
 
-      {/* Botão direito */}
       <button
         onClick={() => scrollBy(1)}
         className="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-700 text-white p-2 rounded-full z-10 shadow-md"
