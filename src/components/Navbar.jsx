@@ -1,14 +1,16 @@
 import "react";
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import SearchBar from "./SearchBar";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = ({ onSearch }) => {
     const logado = !!localStorage.getItem("token")
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
     const menuRef = useRef()
+    const { handleLogout }  = useContext(AuthContext)
 
     useEffect(() => {
         const handler = (event) => {
@@ -22,11 +24,11 @@ const Navbar = ({ onSearch }) => {
         };
     }, []);
 
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        setIsOpen(false);
-        navigate("/login");
-    };
+    // const handleLogout = () => {
+    //     localStorage.removeItem("token");
+    //     setIsOpen(false);
+    //     navigate("/login");
+    // };
 
     return (
         <div className="flex flex-col justify-between bg-black">

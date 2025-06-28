@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import useBooks from "../../hooks/useBooks";
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext } from "react";
 
 const BooksPage = ({ search }) => {
   const [books] = useBooks(
@@ -12,6 +14,7 @@ const BooksPage = ({ search }) => {
   );
   
   const [isOpen, setOpen] = useState(false)
+  const { logado } = useContext(AuthContext)
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'rgb(243, 237, 233)' }}>
@@ -24,7 +27,6 @@ const BooksPage = ({ search }) => {
         <button onClick={() => setOpen(!isOpen)} className="bg-black text-white px-4 py-2 rounded p-2 ">
            <b>Filters</b>
         </button>
-
         {isOpen && (
           <div className="absolute mt-2 w-24 bg-white text-black rounded-lg shadow-lg z-50">
               <Link to="/books/drama" className="block px-4 py-2 hover:bg-gray-100"onClick={() => setOpen(false)}>
@@ -55,7 +57,6 @@ const BooksPage = ({ search }) => {
 
       <div className="flex justify-center items-center">
         <div className="famous-book grid grid-cols-3 gap-8 p-8">
-          {console.log(books.length)}
           {
             books.length === 1
               ? 

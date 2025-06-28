@@ -1,16 +1,21 @@
 import "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import api from "../auth/api";
+import { AuthContext } from "../contexts/AuthContext";
+import ModalNotLogged from '../components/ModalNotLogged';
 
 const ReviewPaymentPage = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [showNotLoggedPopup, setNotLoggedPopup] = useState(false);
+  const { logado } = useContext(AuthContext)
+  const urlBook = `http://localhost:5090/api/Book/${id}`
 
   useEffect(() => {
-  axios.get(`http://localhost:5090/api/Book/${id}`)
+  axios.get(urlBook)
   .then(res => setBook(res.data))
   .catch(err => console.error('Erro ao carregar livro:', err));
   }, [id]);
@@ -24,7 +29,7 @@ const ReviewPaymentPage = () => {
     }catch(error){
       console.log(`Error: ${error}`)
     }
-
+    setNotLoggedPopup(false)
     setShowPopup(true);
   };
 
@@ -66,8 +71,8 @@ const ReviewPaymentPage = () => {
           </div>
 
            {/* Botão de pagamento */}
-           <button onClick={handlePayment} className="bg-black text-white text-3xl font-bold py-4 px-4 rounded-4xl hover:bg-gray-800 transition cursor-pointer">
-            Confirm Lent 
+           <button onClick={ logado ? handlePayment : () => setNotLoggedPopup(true) } className="bg-black text-white font-bold py-4 px-4 rounded-4xl hover:bg-gray-800 transition cursor-pointer">
+            CONFIRM LENT
           </button>
 
           {/* Popup de confirmação */}
@@ -86,6 +91,8 @@ const ReviewPaymentPage = () => {
                   </div>
                 </div>
             )}
+
+            {showNotLoggedPopup && <ModalNotLogged linkPage={`books`}/>}
         </div>
       </div>
     </div>

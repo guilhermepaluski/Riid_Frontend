@@ -5,7 +5,7 @@ import StartReadingButton from "../components/StartReadingButton";
 
 const HomePage = () => {
     return (
-      <div className="min-h-screen flex flex-col justify-between" style={{ backgroundColor: 'rgb(243, 237, 233)' }} >
+      <div className="min-h-screen flex flex-col justify-between" style={{ backgroundColor: 'rgb(243, 237, 233)' }}>
 
         {/* Body */}
         <div className="flex justify-center items-center p-15 bg-black">
@@ -29,7 +29,7 @@ const HomePage = () => {
 
             {/* Home Page Image */}
             <div className="p-5">
-              <img src="public\images\homepagedrawbook.png" alt="HomePageImage" className="w-140 h-full" />
+              <img src="public\images\einstein-riid.png" alt="HomePageImage" className="w-140 h-full" />
             </div>
         </div>
 
