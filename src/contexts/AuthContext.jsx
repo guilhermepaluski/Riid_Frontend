@@ -1,25 +1,43 @@
-import { createContext, useState } from 'react';
-import { login } from '../services/auth.js';
+import { createContext, useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [token, setToken] = useState(localStorage.getItem('token'));
+export const AuthProvider = ({ children }) => {
+  const [logado, setLogado] = useState(false);
 
-  const loginUser = async (email, password) => {
-    const newToken = await login(email, password);
-    setToken(newToken);
-    localStorage.setItem('token', newToken);
+  const isTokenValid = (token) => {
+    try {
+      const { exp } = jwtDecode(token);
+      const now = Date.now() / 1000;
+      return exp > now;
+    } catch (error) {
+      return false;
+    }
   };
 
-  const logout = () => {
-    setToken(null);
-    localStorage.removeItem('token');
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token && isTokenValid(token)) {
+      setLogado(true);
+    } else {
+      setLogado(false);
+    }
+  }, []);
+
+  const handleLogin = (token) => {
+    localStorage.setItem("token", token);
+    setLogado(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setLogado(false);
   };
 
   return (
-    <AuthContext.Provider value={{ token, loginUser, logout }}>
+    <AuthContext.Provider value={{ logado, handleLogin, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
