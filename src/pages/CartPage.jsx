@@ -4,7 +4,7 @@ import TrashButton from "../components/TrashButton";
 
 const CartPage = () => {
     return (
-    <div className="min-h-screen flex flex-col justify-between bg-white">
+    <div className="min-h-screen flex flex-col justify-between bg-amber-50">
         <div className="flex items-center gap-15 p-15">
             <img src="./images/cartriid.png" alt="" />
             <span className="font-bold text-5xl">

@@ -18,7 +18,7 @@ const ExpiredBookInfoPage = () => {
     if (!book) return <div className="p-8">Carregando...</div>;
 
     return (
-        <div className="min-h-screen flex flex-col bg-white">
+        <div className="min-h-screen flex flex-col bg-amber-50">
 
             <div className="flex p-15 min-h-screen">
                 {/* BookImage */}

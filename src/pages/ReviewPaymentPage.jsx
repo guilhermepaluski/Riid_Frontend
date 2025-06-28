@@ -49,7 +49,7 @@ const ReviewPaymentPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-white">
+    <div className="min-h-screen flex flex-col justify-between" style={{ backgroundColor: 'rgb(243, 237, 233)' }} >
       <div className="flex p-10 gap-10">
         {/* BookImage */}
           <div> 
@@ -66,20 +66,20 @@ const ReviewPaymentPage = () => {
           </div>
 
            {/* Botão de pagamento */}
-           <button onClick={handlePayment} className="bg-black text-white font-bold py-4 px-4 rounded hover:bg-gray-800 transition">
-            CONFIRM LENT
+           <button onClick={handlePayment} className="bg-black text-white text-3xl font-bold py-4 px-4 rounded-4xl hover:bg-gray-800 transition cursor-pointer">
+            Confirm Lent 
           </button>
 
           {/* Popup de confirmação */}
             {showPopup && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div className="fixed inset-0 bg-black opacity-75 flex items-center justify-center z-50">
                   <div className="bg-white p-6 rounded shadow-xl max-w-md text-center space-y-4">
-                      <h2 className="text-2xl font-bold text-green-700">Lent Complete</h2>
+                      <h2 className="text-2xl font-bold text-green-700">Lent Complete!</h2>
                       <p>
                       Your lent is complete! You can close this window and start reading your book now.
                       </p>
                       <Link to="/borrowed">
-                        <button onClick={closePopup} className="mt-4 px-4 py-2 bg-black text-white rounded hover:bg-green-700 transition">
+                        <button onClick={closePopup} className="mt-4 px-4 py-2 bg-black text-white rounded-4xl hover:bg-red-900 transition cursor-pointer">
                             Close
                         </button>
                       </Link>

@@ -33,11 +33,11 @@ const RegisterPage = () => {
   }
   
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-white">
+    <div className="min-h-screen flex flex-col justify-between" style={{ backgroundColor: 'rgb(243, 237, 233)' }} >
 
       {/* Body */}
       <div className="flex justify-center items-center min-h-screen">
-        <form onSubmit={handleRegister} className="border-4 border-black p-8 w-96 text-center">
+        <form onSubmit={handleRegister} className="shadow-2xl rounded-4xl p-8 w-96 text-center bg-white">
           <h2 className="text-3xl font-bold">Register</h2><br />
           
           <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} className="text-white block w-full p-2 my-2 border bg-black" />

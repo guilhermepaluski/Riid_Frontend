@@ -14,11 +14,15 @@ const BooksPage = ({ search }) => {
   const [isOpen, setOpen] = useState(false)
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'rgb(243, 237, 233)' }}>
 
-      <div className="relative p-15">
-        <button onClick={() => setOpen(!isOpen)} className="bg-black text-white px-4 py-2 rounded p-2">
-           <b>Filter</b>
+    <div className="relative p-15">
+        <div className="flex justify-center font-bold text-9xl">
+          Books
+        </div>
+        
+        <button onClick={() => setOpen(!isOpen)} className="bg-black text-white px-4 py-2 rounded p-2 ">
+           <b>Filters</b>
         </button>
 
         {isOpen && (
@@ -48,6 +52,7 @@ const BooksPage = ({ search }) => {
         )}
       </div>
 
+
       <div className="flex justify-center items-center">
         <div className="famous-book grid grid-cols-3 gap-8 p-8">
           {console.log(books.length)}
@@ -55,10 +60,11 @@ const BooksPage = ({ search }) => {
             books.length === 1
               ? 
                 <div>
-                    <Link key={books[0].id} to={`/bookinfo/${books[0].id}`}>
+                  <Link key={books[0].id} to={`/bookinfo/${books[0].id}`}>
                     <div>
-                      <img src={books[0].image} alt={books[0].name} className="w-[275px] mr-4" />
-                      <span className="font-bold">{books[0].name}</span>
+                      <img src={books[0].image} alt={books[0].name} className="w-[275px] mr-4 shadow-2xl" />
+                      <br />
+                      <span className="font-bold p-7">{books[0].name}</span>
                     </div>
                   </Link>
                 </div>

@@ -54,7 +54,7 @@ const Navbar = ({ onSearch }) => {
                             <div ref={menuRef} className="relative">
                                 {logado ? (
                                     <>
-                                        <button onClick={() => setIsOpen(!isOpen)}>
+                                        <button onClick={() => setIsOpen(!isOpen)} className="cursor-pointer">
                                             <img src="./images/usericonpng.png" className="w-9" alt="" />
                                         </button>
 
@@ -68,7 +68,7 @@ const Navbar = ({ onSearch }) => {
                                                     Settings
                                                 </Link>
                                                 
-                                                <button onClick={handleLogout} className="text-center w-full px-4 py-2 hover:bg-red-900 rounded-b-lg">
+                                                <button onClick={handleLogout} className="text-center w-full px-4 py-2 hover:bg-red-900 hover:text-white rounded-b-lg cursor-pointer">
                                                     Exit
                                                 </button>
                                             </div>

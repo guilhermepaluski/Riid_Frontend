@@ -3,7 +3,7 @@ import "react";
 const AboutUsPage = () => {
   return (
     
-    <div className="min-h-screen flex flex-col justify-between bg-white">
+    <div className="min-h-screen flex flex-col justify-between" style={{ backgroundColor: 'rgb(243, 237, 233)' }} >
 
       {/* Text 1 */}
       <div className="flex justify-start h-100 text-9xl p-10">

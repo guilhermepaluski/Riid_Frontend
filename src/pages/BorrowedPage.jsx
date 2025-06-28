@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 const BorrowedPage = () => {
   return (
     
-    <div className="min-h-screen flex flex-col justify-between bg-white">
+    <div className="min-h-screen flex flex-col justify-between"  style={{ backgroundColor: 'rgb(243, 237, 233)' }}>
 
     {/* Lent counter */}
     <div className="flex justify-center p-15">
-        <span className="text-3xl font-bold leading-15">
-            You have already lent ${} books!
+        <span className="text-4xl leading-15">
+            You have already lent <b>${}</b> books!
         </span>
     </div>
 
@@ -18,7 +18,7 @@ const BorrowedPage = () => {
             
             {/* RECENTS */}
             <div className="flex justify-start">
-              <span className="text-5xl font-bold">
+              <span className="text-8xl font-bold">
                   RECENTS
               </span>
             </div>
@@ -42,7 +42,7 @@ const BorrowedPage = () => {
 
             {/* SOME TIME AGO... */}
               <div className="flex justify-start">
-                  <span className="text-5xl font-bold">
+                  <span className="text-8xl font-bold">
                     SOME TIME AGO...
                   </span>
               </div>
