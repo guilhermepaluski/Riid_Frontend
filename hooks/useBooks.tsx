@@ -18,7 +18,6 @@ const useBooks = (url: string): [Book[], boolean] => {
         const getBooks = async() => {
             try{
                 const response = await fetch(url);
-                console.log('BATATA')
                 const data = await response.json();
 
                 const livros = Array.isArray(data) ? data : [data];

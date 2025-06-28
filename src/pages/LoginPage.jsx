@@ -19,7 +19,7 @@ const LoginPage = ({onLogin}) => {
       }
 
       localStorage.setItem('token', response.data.token);
-      onLogin();
+      onLogin(response.data.token);
       navigate("/");
     } catch (error) {
       alert('Erro: ' + error.response.data);

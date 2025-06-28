@@ -18,12 +18,11 @@ import axios from 'axios';
 import { AuthContext, AuthProvider } from './contexts/AuthContext';
 import { jwtDecode } from 'jwt-decode';
 import UserNotLogged from './pages/UserNotLogged';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 function App() {
   const [search, setSearch] = useState("");
   const { logado, handleLogin } = useContext(AuthContext)
-
-  console.log(`Logado?: ${logado}`);
 
   // VER SOBRE A SEGURANÇA E ROTAS AQUI NO APP
   return(
@@ -38,9 +37,10 @@ function App() {
             <Route path='/user' element={<UserPage />} />
             <Route path='/books' element={<BooksPage search={search} />} />
             <Route path='/borrowed' element={
-              logado ? <BorrowedPage /> : <Navigate to={"/notLogged"}/>
-            } 
-            />
+              <ProtectedRoute>
+                <BorrowedPage />
+              </ProtectedRoute>
+            }/>
             <Route path='/aboutus' element={<AboutUsPage />} />
             <Route path='/bookinfo/:id' element={<BookInfoPage />} />
             <Route path='/expiredbookinfo' element={<ExpiredBookInfoPage />} />
