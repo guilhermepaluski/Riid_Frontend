@@ -44,10 +44,7 @@ const RegisterPage = () => {
           <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="text-white block w-full p-2 my-2 border bg-black" />
           <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="text-white block w-full p-2 my-2 border bg-black" />
           
-          <button
-            type="submit"
-            className="mt-4 bg-black text-white px-4 py-2 w-30 rounded-md"
-          >
+          <button type="submit" className="mt-4 bg-black text-white px-4 py-2 w-30 rounded-md cursor-pointer">
             Register
           </button>
 

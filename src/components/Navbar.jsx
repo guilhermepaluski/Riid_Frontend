@@ -48,9 +48,6 @@ const Navbar = ({ onSearch }) => {
                     
                     <div className="flex">
                         <div className="flex gap-5">
-                            <Link to="/cart">
-                                <img src="./images/cartriid2.png" className="w-10" alt="" />
-                            </Link>
 
                             {/* User Icon/Sign in/Sign up */}
                             <div ref={menuRef} className="relative">

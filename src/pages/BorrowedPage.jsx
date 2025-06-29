@@ -1,105 +1,60 @@
 import "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import api from "../auth/api";
+import { Link } from 'react-router-dom';
 
 const BorrowedPage = () => {
-    return (
-    
+  const [loans, setLoans] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+  const fetchLoans = async () => {
+    try {
+      const response = await api.get("/Loan/myBooks", {
+        withCredentials: true // se o cookie de autenticação estiver sendo usado
+      });
+      setLoans(response.data);
+    } catch (err) {
+      setError("Erro ao carregar livros.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+    fetchLoans();
+  }, []);
+
+
+  return (
     <div className="min-h-screen flex flex-col justify-between"  style={{ backgroundColor: 'rgb(243, 237, 233)' }}>
 
-    {/* Lent counter */}
-    <div className="flex justify-center p-15">
-        <span className="text-4xl leading-15">
-            You have already lent <b>${}</b> books!
-        </span>
+    <div className="flex justify-center font-bold text-9xl relative p-15">
+        Borrowed
     </div>
 
-      <div className="flex justify-center items-center min-h-screen">
-        <div>
-            
-            {/* RECENTS */}
-            <div className="flex justify-start">
-              <span className="text-8xl font-bold">
-                  RECENTS
-              </span>
-            </div>
+    {loading && <p>Carregando...</p>}
+    {error && <p>{error}</p>}
 
-            {/* Books Images RECENTS */}
-            <div className="grid grid-cols-3 gap-15 p-30 justify-center">
-
-              <div>
-                <img src="./images/cabecafria.jpg" alt="abel ferreira" className="w-[275px] mr-35" />
-                <span className="font-bold">Cabeça Fria Coração Quente</span>
-              </div>
-              <div> 
-                <img src="./images/jogosvorazes.jpg" alt="Einstein" className="w-[275px] mr-35" />
-                <span className="font-bold">Jogos Vorazes</span>
-              </div>
-              <div>
-                <img src="./images/asaventurasdocapitaocueca.jpg" alt="Einstein" className="w-[275px]" />
-                <span className="font-bold">As Aventuras do Capitão Cueca</span>
-              </div>  
-              </div>
-
-            {/* SOME TIME AGO... */}
-              <div className="flex justify-start">
-                  <span className="text-8xl font-bold">
-                    SOME TIME AGO...
-                  </span>
-              </div>
-
-            {/* Books Images SOME TIME AGO */}
-            <div className="grid grid-cols-3 gap-15 p-30 justify-center">
-              <div>
-                <img src="./images/cabecafria.jpg" alt="abel ferreira" className="w-[275px] mr-35" />
-                <span className="font-bold">Cabeça Fria Coração Quente</span>
-              </div>
-              <div> 
-                <img src="./images/jogosvorazes.jpg" alt="Einstein" className="w-[275px] mr-35" />
-                <span className="font-bold">Jogos Vorazes</span>
-              </div>
-              
-              {/* CADIADO */}
-              <Link to="/expiredbookinfo">
-              <div>
-                <img src="./images/cadiadoasaventurasdocapitaocueca.jpg" alt="Einstein" className="w-[275px]" />
-                <span className="font-bold">As Aventuras do Capitão Cueca</span>
-              </div>
-              </Link>
-              
-              <div>
-                <img src="./images/cabecafria.jpg" alt="abel ferreira" className="w-[275px] mr-35" />
-                <span className="font-bold">Cabeça Fria Coração Quente</span>
-              </div>
-              <div> 
-                <img src="./images/jogosvorazes.jpg" alt="Einstein" className="w-[275px] mr-35" />
-                <span className="font-bold">Jogos Vorazes</span>
-              </div>
-              <div>
-                <img src="./images/asaventurasdocapitaocueca.jpg" alt="Einstein" className="w-[275px]" />
-                <span className="font-bold">As Aventuras do Capitão Cueca</span>
-              </div>  
-              <div>
-                <img src="./images/cabecafria.jpg" alt="abel ferreira" className="w-[275px] mr-35" />
-                <span className="font-bold">Cabeça Fria Coração Quente</span>
-              </div>
-              <div> 
-                <img src="./images/jogosvorazes.jpg" alt="Einstein" className="w-[275px] mr-35" />
-                <span className="font-bold">Jogos Vorazes</span>
-              </div>
-              <div>
-                <img src="./images/asaventurasdocapitaocueca.jpg" alt="Einstein" className="w-[275px]" />
-                <span className="font-bold">As Aventuras do Capitão Cueca</span>
-              </div>  
-            </div>
-
-            <div className='flex p-15 gap-15 justify-center'>
-                <Link to="/books">1</Link>
-                <Link to="/books/2">2</Link>
-                <Link to="/books/3">3</Link>
-            </div>
-            </div>
+    {!loading && !error && (
+      <>
+        <div className="flex justify-start p-10">
+          <span className="text-7xl font-bold">RECENTS</span>
         </div>
-      </div>
+
+        <div className="grid grid-cols-3 gap-15 p-30 justify-center">
+          {loans.map((loan, index) => (
+            <div key={loan.id}>
+              <Link to="/downloadbookpage">
+                <img src={loan.book_Image} alt={loan.book_Name} className="w-[275px] mr-35"/>
+                <span className="font-bold">{loan.book_Name}</span>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </>
+    )}
+    </div>
   );
 };
 

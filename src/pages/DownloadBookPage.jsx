@@ -1,18 +1,29 @@
 import "react";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import BorrowButton from "../components/BorrowButton";
-import axios from 'axios';
+import DownloadButton from "../components/DownloadButton";
+import api from "../auth/api";
 
-const BookInfoPage = () => {
+const DownloadBookPage = () => {
     const { id } = useParams();
     const [book, setBook] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:5090/api/Book/${id}`)
-        .then(res => setBook(res.data))
-        .catch(err => console.error(err));
-    }, [id]);
+        const fetchLoans = async () => {
+            try {
+            const response = await api.get(`/Loan/myBooks/${id}`, {
+                withCredentials: true // se o cookie de autenticação estiver sendo usado
+            });
+            setBook(true);
+            } catch (err) {
+            setError("Erro ao carregar livros.");
+            } finally {
+            setLoading(false);
+            }
+        };
+
+            fetchLoans();
+    }, []);
 
     if (!book) return <div className="p-8">Carregando...</div>;
 
@@ -39,9 +50,9 @@ const BookInfoPage = () => {
                     </div>
                     */}
 
-                    {/* BorrowButton */}
+                    {/* DownloadButton */}
                     <div className="flex justify-start gap-25 items-center h-40">
-                        <BorrowButton bookId={book.id} />
+                        <DownloadButton bookId={book.id} />
                     </div>
                 </div>
             </div>
@@ -49,4 +60,4 @@ const BookInfoPage = () => {
     )
 }
 
-export default BookInfoPage;
+export default DownloadBookPage;

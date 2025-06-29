@@ -50,10 +50,7 @@ const LoginPage = ({onLogin}) => {
             className="text-white block w-full p-2 my-2 border bg-black"
           />
 
-          <button
-            type="submit"
-            className="mt-4 bg-black text-white px-4 py-2 w-30 rounded-md"
-          >
+          <button type="submit" className="mt-4 bg-black text-white px-4 py-2 w-30 rounded-md cursor-pointer">
             Login
           </button>
 
