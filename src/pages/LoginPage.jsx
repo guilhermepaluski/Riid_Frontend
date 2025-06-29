@@ -19,6 +19,7 @@ const LoginPage = ({onLogin}) => {
       }
 
       localStorage.setItem('token', response.data.token);
+      console.log(`Token: ${response.data.token}`)
       onLogin(response.data.token);
       navigate("/");
     } catch (error) {

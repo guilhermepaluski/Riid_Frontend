@@ -27,32 +27,30 @@ function App() {
 
   // VER SOBRE A SEGURANÇA E ROTAS AQUI NO APP
   return(
-    <AuthProvider>
-      <Router>
-        <Navbar onSearch={setSearch} />
-          <Routes>
-            <Route path='/' element={<HomePage />}/>
-            <Route path='/home' element={<HomePage />} />
-            <Route path='/register' element={<RegisterPage />} />
-            <Route path='/login' element={<LoginPage onLogin={handleLogin}/>} />
-            <Route path='/user' element={<UserPage />} />
-            <Route path='/books' element={<BooksPage search={search} />} />
-            <Route path='/borrowed' element={
-              <ProtectedRoute>
-                <BorrowedPage />
-              </ProtectedRoute>
-            }/>
-            <Route path='/aboutus' element={<AboutUsPage />} />
-            <Route path='/bookinfo/:id' element={<BookInfoPage />} />
-            <Route path='/expiredbookinfo' element={<ExpiredBookInfoPage />} />
-            <Route path='/downloadbookpage' element={<DownloadBookPage />} />
-            <Route path='/reviewpayment/:id' element={<ReviewPaymentPage />} />
-            <Route path='/cart' element={<CartPage />} />
-            <Route path='/notLogged' element={<UserNotLogged />} />
-          </Routes>
-        <Footer />
-      </Router>
-    </AuthProvider>
+    <Router>
+      <Navbar onSearch={setSearch} />
+        <Routes>
+          <Route path='/' element={<HomePage />}/>
+          <Route path='/home' element={<HomePage />} />
+          <Route path='/register' element={<RegisterPage />} />
+          <Route path='/login' element={<LoginPage onLogin={handleLogin}/>} />
+          <Route path='/user' element={<UserPage />} />
+          <Route path='/books' element={<BooksPage search={search} />} />
+          <Route path='/borrowed' element={
+            <ProtectedRoute>
+              <BorrowedPage />
+            </ProtectedRoute>
+          }/>
+          <Route path='/aboutus' element={<AboutUsPage />} />
+          <Route path='/bookinfo/:id' element={<BookInfoPage />} />
+          <Route path='/expiredbookinfo' element={<ExpiredBookInfoPage />} />
+          <Route path='/downloadbookpage' element={<DownloadBookPage />} />
+          <Route path='/reviewpayment/:id' element={<ReviewPaymentPage />} />
+          <Route path='/cart' element={<CartPage />} />
+          <Route path='/notLogged' element={<UserNotLogged />} />
+        </Routes>
+      <Footer />
+    </Router>
   );
 }
 
