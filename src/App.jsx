@@ -44,7 +44,7 @@ function App() {
           <Route path='/aboutus' element={<AboutUsPage />} />
           <Route path='/bookinfo/:id' element={<BookInfoPage />} />
           <Route path='/expiredbookinfo' element={<ExpiredBookInfoPage />} />
-          <Route path='/downloadbookpage' element={<DownloadBookPage />} />
+          <Route path='/downloadbookpage/:id' element={<DownloadBookPage />} />
           <Route path='/reviewpayment/:id' element={<ReviewPaymentPage />} />
           <Route path='/cart' element={<CartPage />} />
           <Route path='/notLogged' element={<UserNotLogged />} />

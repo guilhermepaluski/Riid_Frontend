@@ -11,14 +11,10 @@ const DownloadBookPage = () => {
     useEffect(() => {
         const fetchLoans = async () => {
             try {
-            const response = await api.get(`/Loan/myBooks/${id}`, {
-                withCredentials: true // se o cookie de autenticação estiver sendo usado
-            });
-            setBook(true);
+                const response = await api.get(`/Loan/myBooks/${id}`)
+                setBook(response.data);
             } catch (err) {
-            setError("Erro ao carregar livros.");
-            } finally {
-            setLoading(false);
+                setError("Erro ao carregar livros.");
             }
         };
 
@@ -33,7 +29,7 @@ const DownloadBookPage = () => {
             <div className="flex p-15 min-h-screen">
                 {/* BookImage */}
                 <div> 
-                    <img src= { book.image } alt={book.image} className="w-[400px] mr-35 shadow-2xl" />
+                    <img src= { book.book_Image } alt={book.image} className="w-[400px] mr-35 shadow-2xl" />
                 </div>
 
                 {/* Book Infos */}
@@ -41,7 +37,7 @@ const DownloadBookPage = () => {
                     
                     {/* Title */}
                     <div className="text-4xl font-bold">
-                        <h1>{ book.name }</h1>
+                        <h1>{ book.book_Name }</h1>
                     </div>
 
                     {/* Description 

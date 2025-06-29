@@ -11,9 +11,7 @@ const BorrowedPage = () => {
   useEffect(() => {
   const fetchLoans = async () => {
     try {
-      const response = await api.get("/Loan/myBooks", {
-        withCredentials: true // se o cookie de autenticação estiver sendo usado
-      });
+      const response = await api.get("/Loan/myBooks")
       setLoans(response.data);
     } catch (err) {
       setError("Erro ao carregar livros.");
@@ -45,7 +43,7 @@ const BorrowedPage = () => {
         <div className="grid grid-cols-3 gap-15 p-30 justify-center">
           {loans.map((loan, index) => (
             <div key={loan.id}>
-              <Link to="/downloadbookpage">
+              <Link to={`/downloadbookpage/${loan.id}`}>
                 <img src={loan.book_Image} alt={loan.book_Name} className="w-[275px] mr-35"/>
                 <span className="font-bold">{loan.book_Name}</span>
               </Link>
